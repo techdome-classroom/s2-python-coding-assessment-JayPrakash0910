@@ -5,9 +5,7 @@ class Solution:
             '[': ']',
             '{': '}'
         }
-
         stack = []
-
         for curr in s:
             if curr in bracket_map: 
                 stack.append(curr)
@@ -16,8 +14,8 @@ class Solution:
                     stack.pop() 
                 else:
                     return False  
-
-        return not stack  
+        return not stack 
+        
 solution = Solution()
 s = input("Enter a string of parentheses: ")
 print(solution.isValid(s))
