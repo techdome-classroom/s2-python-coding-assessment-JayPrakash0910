@@ -1,28 +1,23 @@
-def is_valid(s: str) -> bool:
-    bracket_pairs = {
-        ')': '(',
-        '}': '{',
-        ']': '['
-    }
-    bracket_stack = []
+class Solution:
+    def isValid(self, s: str) -> bool:
+        bracket_map = {
+            '(': ')',
+            '[': ']',
+            '{': '}'
+        }
 
-    for ch in s:
-        if ch in bracket_pairs: 
-            if not bracket_stack or bracket_stack[-1] != bracket_pairs[ch]:
-                return False 
-            bracket_stack.pop() 
-        else:
-            bracket_stack.append(ch) 
+        stack = []
 
-    return not bracket_stack
+        for curr in s:
+            if curr in bracket_map: 
+                stack.append(curr)
+            elif curr in bracket_map.values(): 
+                if stack and bracket_map[stack[-1]] == curr:
+                    stack.pop() 
+                else:
+                    return False  
 
-
-# Example test cases
-s = "()"
-print(f"Input: {s} Output: {is_valid(s)}")
-
-s = "()[]{}"
-print(f"Input: {s} Output: {is_valid(s)}")
-
-s = "(]"
-print(f"Input: {s} Output: {is_valid(s)}")
+        return not stack  
+solution = Solution()
+s = input("Enter a string of parentheses: ")
+print(solution.isValid(s))
