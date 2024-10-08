@@ -1,27 +1,28 @@
-import unittest
-from program1 import Solution
+def is_valid(s: str) -> bool:
+    bracket_pairs = {
+        ')': '(',
+        '}': '{',
+        ']': '['
+    }
+    bracket_stack = []
 
-class TestSolution(unittest.TestCase):
-    def setUp(self):
-        self.solution = Solution()
+    for ch in s:
+        if ch in bracket_pairs: 
+            if not bracket_stack or bracket_stack[-1] != bracket_pairs[ch]:
+                return False 
+            bracket_stack.pop() 
+        else:
+            bracket_stack.append(ch) 
 
-    def test_valid_parentheses(self):
-        self.assertTrue(self.solution.isValid("()"))
-        self.assertTrue(self.solution.isValid("()[]{}"))
-        self.assertTrue(self.solution.isValid("{[()]}"))
-
-    def test_invalid_parentheses(self):
-        self.assertFalse(self.solution.isValid("(]"))
-        self.assertFalse(self.solution.isValid("([)]"))
-
-    def test_empty_string(self):
-        self.assertTrue(self.solution.isValid(""))
-
-    def test_mixed_parentheses(self):
-        self.assertFalse(self.solution.isValid("(){"))
-
-if __name__ == '__main__':
-    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+    return not bracket_stack
 
 
+# Example test cases
+s = "()"
+print(f"Input: {s} Output: {is_valid(s)}")
 
+s = "()[]{}"
+print(f"Input: {s} Output: {is_valid(s)}")
+
+s = "(]"
+print(f"Input: {s} Output: {is_valid(s)}")
